@@ -4,6 +4,7 @@ import requests
 from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes
 BOT_TOKEN = os.getenv("BOT_TOKEN")
+CHANNEL_ID = os.getenv("CHANNEL_ID")
 
 # حد هشدار
 LIMIT = 6800
@@ -85,7 +86,7 @@ async def check_price(context: ContextTypes.DEFAULT_TYPE):
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    chat_id = update.effective_chat.id
+    chat_id = CHANNEL_ID
 
     # اگر قبلاً فعال بوده، زمان‌بندی قبلی پاک شود
     old_jobs = context.job_queue.get_jobs_by_name(str(chat_id))
@@ -120,16 +121,17 @@ async def status(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         ada_price, zec_price, result = get_calculation()
 
-        await update.message.reply_text(
-            normal_message(ada_price, zec_price, result)
-        )
+        await context.bot.send_message(
+    chat_id=CHANNEL_ID,
+    text=normal_message(ada_price, zec_price, result)
+)
 
     except Exception as error:
         await update.message.reply_text(f"❌ خطا:\n{error}")
 
 
 async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    chat_id = update.effective_chat.id
+    chat_id = CHANNEL_ID
 
     jobs = context.job_queue.get_jobs_by_name(str(chat_id))
     for job in jobs:
