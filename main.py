@@ -33,7 +33,7 @@ def get_calculation():
 
 def normal_message(ada_price, zec_price, result):
     return (
-        "📊 گزارش ۵ دقیقه‌ای\n\n"
+        "📊 گزارش 10 دقیقه‌ای\n\n"
         f"🔹 ADA: ${ada_price:,.6f}\n"
         f"🔹 ZEC: ${zec_price:,.2f}\n\n"
         "🧮 فرمول: (ZEC × 1.2) ÷ ADA\n"
