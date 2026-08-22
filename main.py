@@ -7,7 +7,7 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHANNEL_ID = os.getenv("CHANNEL_ID")
 
 # حد هشدار
-LIMIT = 4200
+LIMIT = 4650
 
 def get_calculation():
     url = "https://api.coingecko.com/api/v3/simple/price"
@@ -25,7 +25,7 @@ def get_calculation():
     ada_price = data["cardano"]["usd"]
     zec_price = data["zcash"]["usd"]
 
-    # فرمول: (قیمت ZEC × 2.2) ÷ قیمت ADA
+    # فرمول: (قیمت ZEC × 1.2) ÷ قیمت ADA
     result = (zec_price * 1.2) / ada_price
 
     return ada_price, zec_price, result
@@ -36,7 +36,7 @@ def normal_message(ada_price, zec_price, result):
         "📊 گزارش ۵ دقیقه‌ای\n\n"
         f"🔹 ADA: ${ada_price:,.6f}\n"
         f"🔹 ZEC: ${zec_price:,.2f}\n\n"
-        "🧮 فرمول: (ZEC × 2.2) ÷ ADA\n"
+        "🧮 فرمول: (ZEC × 1.2) ÷ ADA\n"
         f"✅ نتیجه: {result:,.2f}\n"
         f"🎯 حد هشدار: {LIMIT:,}"
     )
@@ -67,7 +67,7 @@ async def check_price(context: ContextTypes.DEFAULT_TYPE):
 
         # اگر بالاتر از حد بود، ۵ هشدار پشت سر هم بفرست
         if result > LIMIT:
-            for number in range(1, 6):
+            for number in range(1, 3):
                 await context.bot.send_message(
                     chat_id=chat_id,
                     text=(
@@ -103,8 +103,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # هر ۵ دقیقه = ۳۰۰ ثانیه
     context.job_queue.run_repeating(
         check_price,
-        interval=300,
-        first=300,
+        interval=600,
+        first=600,
         chat_id=chat_id,
         name=str(chat_id)
     )
