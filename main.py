@@ -36,7 +36,7 @@ def normal_message(ada_price, zec_price, result):
         "📊 گزارش 10 دقیقه‌ای\n\n"
         f"🔹 ADA: ${ada_price:,.6f}\n"
         f"🔹 ZEC: ${zec_price:,.2f}\n\n"
-        "🧮 فرمول: (ZEC × 1.2) ÷ ADA\n"
+        "🧮 فرمول: (ZEC × 1.08) ÷ ADA\n"
         f"✅ نتیجه: {result:,.2f}\n"
         f"🎯 حد هشدار: {LIMIT:,}"
     )
