@@ -7,7 +7,7 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHANNEL_ID = os.getenv("CHANNEL_ID")
 
 # حد هشدار
-LIMIT = 4650
+LIMIT = 12000
 
 def get_calculation():
     url = "https://api.coingecko.com/api/v3/simple/price"
@@ -25,8 +25,8 @@ def get_calculation():
     ada_price = data["cardano"]["usd"]
     zec_price = data["zcash"]["usd"]
 
-    # فرمول: (قیمت ZEC × 1.2) ÷ قیمت ADA
-    result = (zec_price * 1.2) / ada_price
+    # فرمول: (قیمت ZEC × 1.08) ÷ قیمت ADA
+    result = (zec_price * 1.08) / ada_price
 
     return ada_price, zec_price, result
 
