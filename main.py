@@ -33,7 +33,7 @@ def get_calculation():
 
 def normal_message(ada_price, zec_price, result):
     return (
-        "📊 گزارش 10 دقیقه‌ای\n\n"
+        "📊 گزارش ۲ دقیقه‌ای\n\n"
         f"🔹 ADA: ${ada_price:,.6f}\n"
         f"🔹 ZEC: ${zec_price:,.2f}\n\n"
         "🧮 فرمول: (ZEC × 1.08) ÷ ADA\n"
@@ -103,15 +103,15 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # هر ۵ دقیقه = ۳۰۰ ثانیه
     context.job_queue.run_repeating(
         check_price,
-        interval=600,
-        first=600,
+        interval=120,
+        first=120,
         chat_id=chat_id,
         name=str(chat_id)
     )
 
     await update.message.reply_text(
         "✅ ربات فعال شد.\n\n"
-        "هر ۵ دقیقه گزارش عادی می‌فرستم.\n"
+        "هر ۲ دقیقه گزارش عادی می‌فرستم.\n"
         f"اگر نتیجه بیشتر از {LIMIT:,} شود، ۵ هشدار پشت‌سرهم می‌فرستم."
     )
 
